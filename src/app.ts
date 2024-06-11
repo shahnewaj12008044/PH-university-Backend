@@ -10,7 +10,7 @@ app.use(cors())
 
 //application routes
 
-// app.use('/api/orders', OrderRouter);
+
 
 app.get('/', (req: Request, res:Response) => {
   res.send('Hello World!')
