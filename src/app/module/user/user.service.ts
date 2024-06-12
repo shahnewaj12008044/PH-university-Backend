@@ -2,28 +2,32 @@ import { StringValidation, object } from 'zod';
 import config from '../../config';
 import { TStudent } from '../student/student.interface';
 import { User } from './user.model';
-import { NewUser } from './user.interface';
+import { TUser } from './user.interface';
+import { Student } from '../student/student.model';
+
 
 const createStudentIntoDB = async (password: string, studentData: TStudent) => {
   //create a new user
-  let user: NewUser = {};
+  let userData: Partial<TUser> = {};
 
   //set pass to the user
-  user.password = (config.default_pass as string) || password;
+  userData.password = (config.default_pass as string) || password;
   //set role
-  user.role = 'student';
+  userData.role = 'student';
   //set manually id
-  user.id = "2030201000";
-  const result = await User.create(user); //built in static method
+  userData.id = "2030201000";
+  const newUser = await User.create(userData); //built in static method
 
   //create a student
-  if(Object.keys(result).length){
+  if(Object.keys(newUser).length){
     //set id , _id as user
-    studentData.id = result.id;
-    studentData.user = result._id;
-  }
+    studentData.id = newUser.id;
+    studentData.user = newUser._id;  //referrence _id
 
-  return result;
+    //create new student
+    const newStudent = Student.create(studentData);
+    return newStudent;
+  }
 };
 
 export const UserServices = {

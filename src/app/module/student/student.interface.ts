@@ -1,6 +1,6 @@
 //step-1: create an interface (line 4-40)
 
-import { Model } from "mongoose";
+import { Model, Types } from "mongoose";
 
 //step-2 create a schema()
 export type TUserName = {
@@ -27,6 +27,7 @@ export type TLocalGuardian = {
 
 export type TStudent = {
   id: string;
+  user:Types.ObjectId;
   password: string;
   name: TUserName;
   email: string;
@@ -40,7 +41,6 @@ export type TStudent = {
   guardian: TGuardian;
   localGuardian: TLocalGuardian;
   profileImage?: string;
-  isActive: "active" | "blocked";
   isDeleted:boolean;
 };
 

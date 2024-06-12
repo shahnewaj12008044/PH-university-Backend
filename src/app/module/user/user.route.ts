@@ -1,4 +1,5 @@
 import express from 'express';
+import { UserControllers } from './user.controller';
 
 
 //importing router from  expressd

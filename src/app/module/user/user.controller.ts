@@ -1,5 +1,4 @@
 import { Request, Response } from 'express';
-import { studentServices } from '../student/student.service';
 import { UserServices } from './user.service';
 
 //insert student data controller
@@ -12,13 +11,6 @@ const createStudent = async (req: Request, res: Response) => {
       password,
       studentData
     );
-    // if (error) {
-    //   res.status(500).json({
-    //     success: false,
-    //     message: "something went wrong",
-    //     error: error.details,
-    //   });
-    // }//*joi ends */
 
     //send response
 
