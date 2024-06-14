@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose";
 import validator from "validator";
-import bcrypt from "bcrypt";
+
 import {
   StudentModel,
   TGuardian,
@@ -76,12 +76,6 @@ const studentSchema = new Schema<TStudent, StudentModel>({
     unique:true, 
     ref:"User",
   },
-  password: {
-    type: String,
-    trim: true,
-    required: true,
-    kMaxLength: [20, "password cant be more than 20 chars"],
-  },
   name: {
     type: userNameSchema,
     required: [true, "Name is required"],
@@ -140,21 +134,7 @@ const studentSchema = new Schema<TStudent, StudentModel>({
   }
 });
 
-studentSchema.pre("save", async function (next) {
-  //hashing password and save into DB:
-   //crurrent processed document
-  this.password = await bcrypt.hash(
-    this.password,
-    Number(config.bcrypt_salt_rounds)
-  );
-  next();
-});
 
-//post save middleware/hooks:
-studentSchema.post("save", function (doc, next) {
-  doc.password = "";
-  next();
-});
 
 
 

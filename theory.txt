@@ -1,0 +1,13 @@
+
+next function in middleware takes parameter as error such as next(err)
+
+Global error handler
+
+app.use((err, req:Request, res: Response,next: NextFunction)=>{
+    res.status(500).json({
+        success: false,
+        message:err.message||'something went wrong',
+        error: err
+    })
+})
+

@@ -1,8 +1,10 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { UserServices } from './user.service';
+import sendResponse from '../../utils/sendResponse';
+import httpStatus from 'http-status-codes';
 
 //insert student data controller
-const createStudent = async (req: Request, res: Response) => {
+const createStudent = async (req: Request, res: Response,next:NextFunction) => {
   try {
     const { password, student: studentData } = req.body;
 
@@ -13,18 +15,15 @@ const createStudent = async (req: Request, res: Response) => {
     );
 
     //send response
-
-    res.status(200).json({
+    sendResponse(res,{
+      status:httpStatus.OK,
       success: true,
-      message: 'student is created successfully',
-      data: result,
-    });
-  } catch (err: any) {
-    res.status(500).json({
-      success: false,
-      message: err.message || 'something went wrong',
-      error: err,
-    });
+      message:'student is created successfully',
+      data: result
+    })
+
+  } catch (err) {
+    next(err)
   }
 };
 
