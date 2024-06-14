@@ -1,5 +1,5 @@
 import { studentServices } from "./student.service";
-import { NextFunction, Request, Response } from "express";
+import { NextFunction, Request, RequestHandler, Response } from "express";
 import studentValidationSchema from "./student.validation";
 import sendResponse from "../../utils/sendResponse";
 import httpStatus from 'http-status-codes';
@@ -7,7 +7,7 @@ import httpStatus from 'http-status-codes';
 
 
 //get all student controller
-const getAllStudents = async (req: Request, res: Response,next: NextFunction) => {
+const getAllStudents : RequestHandler = async (req, res,next) => {
   try {
     const result = await studentServices.getAllStudentsFromDB();
     //send response
@@ -23,7 +23,7 @@ const getAllStudents = async (req: Request, res: Response,next: NextFunction) =>
 };
 
 //get a single student controller
-const getAstudent = async (req: Request, res: Response, next : NextFunction) => {
+const getAstudent : RequestHandler = async (req, res, next) => {
   try {
     const { studentId } = req.params;
     const result = await studentServices.getAStudentFromDB(studentId);
@@ -41,7 +41,7 @@ const getAstudent = async (req: Request, res: Response, next : NextFunction) => 
 };
 //delete student
 
-const deleteAStudent = async (req: Request, res: Response,next : NextFunction) => {
+const deleteAStudent : RequestHandler = async (req, res,next) => {
   try {
     const {studentId} = req.params;
     const result = await studentServices.deleteAStudentFromDB(studentId);

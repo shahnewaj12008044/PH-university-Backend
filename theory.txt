@@ -11,3 +11,6 @@ app.use((err, req:Request, res: Response,next: NextFunction)=>{
     })
 })
 
+
+HIGHER ORDER FUNCTION:
+a fucntion that takes a function as parameter and do some tasks and returns a function

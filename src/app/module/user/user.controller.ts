@@ -1,12 +1,12 @@
-import { NextFunction, Request, Response } from 'express';
+import { NextFunction, Request, RequestHandler, Response } from 'express';
 import { UserServices } from './user.service';
 import sendResponse from '../../utils/sendResponse';
-import httpStatus from 'http-status-codes';
+import httpStatus from 'http-status-codes'; 
 
 //insert student data controller
-const createStudent = async (req: Request, res: Response,next:NextFunction) => {
+const createStudent:RequestHandler = async (req, res,next) => {
   try {
-    const { password, student: studentData } = req.body;
+    const { password, student : studentData } = req.body;
 
     //will call service func to get this data
     const result = await UserServices.createStudentIntoDB(
