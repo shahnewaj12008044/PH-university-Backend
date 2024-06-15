@@ -31,5 +31,18 @@ const academicSemesterSchema = new Schema<TAcademicSemester>({
     timestamps: true,
 });
 
+//validation for same semester in a same year
+academicSemesterSchema.pre('save', async function(next){
+    const isSemesterExist = await AcademicSemester.findOne({
+      name: this.name,
+      year: this.year,
+    })
+
+    if(isSemesterExist){
+      throw new Error("The semester already exist!!!")
+    }
+    next()
+})
+
 
 export const AcademicSemester= model<TAcademicSemester>('AcademicSemester',academicSemesterSchema) 
