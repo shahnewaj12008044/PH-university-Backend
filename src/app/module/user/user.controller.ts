@@ -1,11 +1,10 @@
-import { NextFunction, Request, RequestHandler, Response } from 'express';
 import { UserServices } from './user.service';
 import sendResponse from '../../utils/sendResponse';
 import httpStatus from 'http-status-codes';
 import catchAsync from '../../utils/catchAsync';
 
 //insert student data controller
-const createStudent = catchAsync(async (req, res, next) => {
+const createStudent = catchAsync(async (req, res) => {
   const { password, student: studentData } = req.body;
   //will call service func to get this data
   const result = await UserServices.createStudentIntoDB(password, studentData);

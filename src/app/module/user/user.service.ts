@@ -1,4 +1,3 @@
-import { StringValidation, object } from 'zod';
 import config from '../../config';
 import { TStudent } from '../student/student.interface';
 import { User } from './user.model';
@@ -8,14 +7,14 @@ import { Student } from '../student/student.model';
 
 const createStudentIntoDB = async (password: string, studentData: TStudent) => {
   //create a new user
-  let userData: Partial<TUser> = {};
+  const userData: Partial<TUser> = {};
 
   //set pass to the user
   userData.password = (config.default_pass as string) || password;
   //set role
   userData.role = 'student';
   //set manually id
-  userData.id = "2030201002";
+  userData.id = "2030201003";
   const newUser = await User.create(userData); //built in static method
 
   //create a student

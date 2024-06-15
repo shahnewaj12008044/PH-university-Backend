@@ -10,8 +10,7 @@ export default [
         ...globals.browser,
         process: "readonly",
       },
-    },
-    
+    },    
     rules:{
       "@typescript-eslint/no-unused-vars": "error",
       "no-unused-expressions":"error",
