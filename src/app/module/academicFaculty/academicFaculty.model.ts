@@ -6,7 +6,9 @@ const AcademicFacultySchema = new Schema<TAcademicFaculty>({
         type:String,
         required:[true,"Academic faculty is required!!"],
         unique:true,
-    }
-})
+    },
+} ,{
+    timestamps: true,
+  })
 
 export const AcademicFaculty = model<TAcademicFaculty>('AcademicFaclty',AcademicFacultySchema)
