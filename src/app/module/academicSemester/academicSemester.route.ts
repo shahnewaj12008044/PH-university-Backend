@@ -10,7 +10,8 @@ router.post('/create-academic-semester',validationRequest(AcademicSemesterValida
 
 router.get('/',AcademicSemesterControllers.getAllAcademicSemesters),
 router.get('/:semesterId',AcademicSemesterControllers.getSingleAcademicSemester)
-router.patch('/:semesterId',validationRequest(AcademicSemesterValidations.createAcademicSemesterValidationSchema),AcademicSemesterControllers.updateSingleAcademicSemester)
+
+router.patch('/:semesterId',validationRequest(AcademicSemesterValidations.updateAcademicSemesterValidationSchema),AcademicSemesterControllers.updateSingleAcademicSemester)
 
 
 export const AcademicSemesterRoute = router;

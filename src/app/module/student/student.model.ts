@@ -124,6 +124,11 @@ const studentSchema = new Schema<TStudent, StudentModel>({
     require: [true, "Local guardian is required"],
   },
   profileImage: { type: String },
+  admissionSemester:{
+    type:Schema.Types.ObjectId,
+    required:true,
+    ref:"AcademicSemester",
+  },
   isDeleted: {
     type: Boolean,
     default: false,
@@ -133,11 +138,5 @@ const studentSchema = new Schema<TStudent, StudentModel>({
     virtuals:true
   }
 });
-
-
-
-
-
-
 
 export const Student = model<TStudent, StudentModel>("Student", studentSchema);
