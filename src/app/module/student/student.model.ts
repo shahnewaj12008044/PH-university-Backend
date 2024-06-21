@@ -10,7 +10,7 @@ import {
   TUserName,
   //StudentMethods,
 } from "./student.interface";
-import config from "../../config";
+
 
 
 
@@ -124,6 +124,11 @@ const studentSchema = new Schema<TStudent, StudentModel>({
     require: [true, "Local guardian is required"],
   },
   profileImage: { type: String },
+  academicDepartment:{
+    type:Schema.Types.ObjectId,
+    required:true,
+    ref:"AcademicDepartment",
+  },
   admissionSemester:{
     type:Schema.Types.ObjectId,
     required:true,
