@@ -1,5 +1,6 @@
 import { Schema, model } from "mongoose";
 import validator from "validator";
+import httpStatus from 'http-status-codes';
 
 import {
   StudentModel,
@@ -10,6 +11,7 @@ import {
   TUserName,
   //StudentMethods,
 } from "./student.interface";
+import AppError from "../../errors/AppError";
 
 
 
@@ -143,5 +145,33 @@ const studentSchema = new Schema<TStudent, StudentModel>({
     virtuals:true
   }
 });
+
+// Query Middleware
+studentSchema.pre('find', function (next) {
+  this.find({ isDeleted: { $ne: true } });
+  next();
+});
+
+
+studentSchema.pre('findOneAndUpdate',async function (next) {
+  const  query = this.getQuery();
+ const isStudent = await Student.findOne(query)
+ if(!isStudent || isStudent.isDeleted){
+  throw new AppError(httpStatus.BAD_REQUEST,"This Student is already deleted or does not exist")
+  }
+  next();
+});
+
+studentSchema.pre('aggregate', function (next) {
+  this.pipeline().unshift({ $match: { isDeleted: { $ne: true } } });
+  next();
+});
+
+//creating a custom static method
+studentSchema.statics.isUserExists = async function (id: string) {
+  const existingUser = await Student.findOne({ id });
+  return existingUser;
+};
+
 
 export const Student = model<TStudent, StudentModel>("Student", studentSchema);

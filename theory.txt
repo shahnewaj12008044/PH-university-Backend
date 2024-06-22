@@ -14,3 +14,32 @@ app.use((err, req:Request, res: Response,next: NextFunction)=>{
 
 HIGHER ORDER FUNCTION:
 a fucntion that takes a function as parameter and do some tasks and returns a function
+
+TRANSACTION AND ROLLBACK:
+4 priciple of TRANSACTION ROLLBACK:
+ACID(atomicity consistency isolation durability)
+
+A  = atomicity: 
+-> the entire transaction takes place at once or does not happen at all.
+=> it involves the following operation:
+    1.Abort: if a transaction aborts, changes made to the database are not visible.
+    2.Commit: if a transaction commits, changes made to the database are visible.
+ATOMICITY is also known as ALL OR NOTHING RULE
+
+C = consistency
+    ->Ensures that database maintains its intigrity and keep its balance.
+    ->it guarantees that relationship between PIECES OF DATA REMAIN INTACT. for example, if you have data about a person and their address,consistency ensures that the person and their addresses are still connected after the transaction.
+    => ensures that the changes made by one transaction dont interfere with the correctness of another.
+
+I = isolation.
+    =>Ensures that each transaction operates independently.
+    ->Transaction dont see each others unfinished work.Each gets its own space to complete without disturbance.
+    ->Even if lots of things are happening,transaction dont interupt each other,they wait for their chance,
+
+D = durability,
+    ->Once you have something in the database,it stays saved, even if the power goes out or system crashes/
+    =>changes made by a transaction are permanent.They dont dissapear, no matter what  happens next.
+    ->Once you commit a change, its there to stay
+    => even if the system has a hiccup (like sudden shutdown),the data saved remains safe and sound.
+WHEN SHOULD WE USE TRANSACTION:
+ for two or more database write operation.
