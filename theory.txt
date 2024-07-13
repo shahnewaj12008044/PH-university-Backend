@@ -43,3 +43,9 @@ D = durability,
     => even if the system has a hiccup (like sudden shutdown),the data saved remains safe and sound.
 WHEN SHOULD WE USE TRANSACTION:
  for two or more database write operation.
+
+ TYPES OF ERRORS: 
+ => Operational error
+ =>Programatical error
+ =>Unhandled Rejection (asynchronus code)
+ =>Uncaught exception (synchronus code)

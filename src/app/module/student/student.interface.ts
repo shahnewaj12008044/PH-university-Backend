@@ -2,7 +2,6 @@
 
 import { Model, Types } from "mongoose";
 
-//step-2 create a schema()
 export type TUserName = {
   firstName: string;
   middleName?: string;

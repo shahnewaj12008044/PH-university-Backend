@@ -1,6 +1,8 @@
 import { Schema, model } from 'mongoose';
 import { TAcademicDepartment } from './academicDepartment.interface';
 import AppError from '../../errors/AppError';
+// import httpStatus from 'http-status-codes';
+
 
 const AcademicDepartmentSchema = new Schema<TAcademicDepartment>(
   {
@@ -21,15 +23,15 @@ const AcademicDepartmentSchema = new Schema<TAcademicDepartment>(
 );
 
 //departmet unique varify middleware
-AcademicDepartmentSchema.pre('save', async function (next) {
-  const isDepartmentExist = await AcademicDepartment.findOne({
-    name: this.name,
-  });
-  if (isDepartmentExist) {
-    throw new Error('This department is already exist!!!');
-  }
-  next();
-});
+// AcademicDepartmentSchema.pre('save', async function (next) {
+//   const isDepartmentExist = await AcademicDepartment.findOne({
+//     name: this.name,
+//   });
+//   if (isDepartmentExist) {
+//     throw new AppError(httpStatus.BAD_REQUEST,'This department is already exist!!!');
+//   }
+//   next();
+// });
 
 //update validation schema
 

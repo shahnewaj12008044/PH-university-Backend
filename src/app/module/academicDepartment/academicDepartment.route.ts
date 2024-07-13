@@ -7,7 +7,9 @@ import { AcademicDepartmentValidtions } from "./academicDepartment.validation";
 
 const router = Router();
 
-router.post('/create-academic-department',validationRequest(AcademicDepartmentValidtions.createAcademicDepartmentValidationShcema),AcademicDepartmentController.createAcademicDepartment);
+router.post('/create-academic-department',
+    validationRequest(AcademicDepartmentValidtions.createAcademicDepartmentValidationShcema),
+    AcademicDepartmentController.createAcademicDepartment);
 
 router.get('/',AcademicDepartmentController.getAllAcademicDepartment);
 router.get('/:departmentID',AcademicDepartmentController.getSingleAcademicDepartment);
