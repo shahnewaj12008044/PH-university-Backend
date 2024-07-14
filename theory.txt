@@ -49,3 +49,7 @@ WHEN SHOULD WE USE TRANSACTION:
  =>Programatical error
  =>Unhandled Rejection (asynchronus code)
  =>Uncaught exception (synchronus code)
+
+SEARCHING AND FILTERING:
+search( partiral match (only value))
+filter(Exact match ( filed and value))
