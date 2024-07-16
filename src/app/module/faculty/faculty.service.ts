@@ -9,14 +9,7 @@ import { TFaculty } from './faculty.interface';
 
 const getAllFacultiesFromDB = async (query: Record<string, unknown>) => {
   const facultyQuery = new QueryBuilder(
-    Faculty.find()
-      .populate('admissionSemester')
-      .populate({
-        path: 'academicDepartment',
-        populate: {
-          path: 'academicFaculty',
-        },
-      }),
+    Faculty.find().populate('academicDepartment'),
     query
   )
     .search(FacultySearchableFields)
@@ -30,14 +23,8 @@ const getAllFacultiesFromDB = async (query: Record<string, unknown>) => {
 
 //get single student
 const getSingleFacultyFromDB = async (id: string) => {
-  const result = await Faculty.findOne({ id: id })
-    .populate('admissionSemester')
-    .populate({
-      path: 'academicDepartment',
-      populate: {
-        path: 'academicFaculty',
-      },
-    });
+  const result = await Faculty.findOne({ id: id }).populate('academicDepartment')
+    
   return result;
 };
 const updateSingleFacultyintoDB = async (
@@ -75,7 +62,7 @@ const deleteAFacultyFromDB = async (id: string) => {
       { new: true, session }
     );
     if (!deletedFaculty) {
-      throw new AppError(httpStatus.BAD_REQUEST, 'Failed to delete Student');
+      throw new AppError(httpStatus.BAD_REQUEST, 'Failed to delete Faculty');
     }
 
     const deletedUser = await User.findOneAndUpdate(
@@ -91,9 +78,10 @@ const deleteAFacultyFromDB = async (id: string) => {
 
     return deletedFaculty;
   } catch (err) {
+    // console.log(err)
     await session.abortTransaction();
     await session.endSession();
-    throw new AppError(httpStatus.BAD_REQUEST, 'Failed to delete User');
+    throw new AppError(httpStatus.BAD_REQUEST, 'Failed to delete Faculty');
   }
 };
 

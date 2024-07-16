@@ -29,10 +29,12 @@ export const generateStudentId = async (payload: TAcademicSemester) => {
 };
 
 export const generateFacultyId = async() =>{
-    let currenFacultyId = 1;
+    let currenFacultyId = 0;
     const lastFacultyId = await findLastId('faculty');
     if(lastFacultyId){
       currenFacultyId = Number(lastFacultyId.substring(2,6)) + 1;
+    }else{
+      currenFacultyId = 1;
     }
     const incrementFacultyId = currenFacultyId.toString().padStart(4,'0')
     return `F-${incrementFacultyId}`

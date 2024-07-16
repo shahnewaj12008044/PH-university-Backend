@@ -2,6 +2,8 @@ import { Schema, model } from 'mongoose';
 
 import { FacultyModel, TFaculty, TUserName } from './faculty.interface';
 import { BloodGroup, Gender } from './facutly.constant';
+import AppError from '../../errors/AppError';
+import httpStatus from 'http-status-codes';
 
 const userNameSchema = new Schema<TUserName>({
   firstName: {
@@ -81,7 +83,7 @@ const facultySchema = new Schema<TFaculty, FacultyModel>(
     academicDepartment: {
       type: Schema.Types.ObjectId,
       required: [true, 'User id is required'],
-      ref: 'User',
+      ref: 'AcademicDepartment',
     },
     isDeleted: {
       type: Boolean,
@@ -99,9 +101,9 @@ const facultySchema = new Schema<TFaculty, FacultyModel>(
 facultySchema.virtual('fullName').get(function () {
   return (
     this?.name?.firstName +
-    '' +
+    ' ' +
     this?.name?.middleName +
-    '' +
+    ' ' +
     this?.name?.lastName
   );
 });
@@ -121,6 +123,21 @@ facultySchema.pre('aggregate', function (next) {
   this.pipeline().unshift({ $match: { isDeleted: { $ne: true } } });
   next();
 });
+//checking if the data is already deleted
+facultySchema.pre('findOneAndUpdate', async function (next) {
+  const query = this.getQuery();
+  // console.log(query)
+  const isFaculty = await Faculty.findOne(query);
+  // console.log(isFaculty)
+  if (!isFaculty || isFaculty.isDeleted) {
+    throw new AppError(
+      httpStatus.BAD_REQUEST,
+      'This Faculty is already deleted or does not exist'
+    );
+  }
+  next();
+});
+
 
 //checking if user is already exist!
 facultySchema.statics.isUserExists = async function (id: string) {

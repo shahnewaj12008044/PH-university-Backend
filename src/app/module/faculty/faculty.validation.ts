@@ -56,7 +56,7 @@ const updateUserNameValidationSchema = z.object({
   middleName: z.string().trim().optional(),
   lastName: z
     .string()
-    .trim()
+     .trim()
     .regex(/^[A-Za-z]+$/, 'Last Name is not valid')
     .optional(),
 });

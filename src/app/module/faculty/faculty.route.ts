@@ -8,12 +8,12 @@ const router = express.Router();
 
 //will call controller function
 router.get("/", FacultyController.getAllFaculties);
-router.get("/:studentId", FacultyController.getSingleFaculty);
+router.get("/:facultyId", FacultyController.getSingleFaculty);
 
-router.patch("/:studentId",validationRequest(updateFacultyValidationSchema), FacultyController.upadateSingleFaculty);
+router.patch("/:facultyId",validationRequest(updateFacultyValidationSchema), FacultyController.upadateSingleFaculty);
 
-router.delete("/:studentId", FacultyController.deleteSingleFaculty);
+router.delete("/:facultyId", FacultyController.deleteSingleFaculty);
 //changes will be on module 9 branch
 
 
-export const studentRoutes = router;
+export const facultyRoutes = router;
