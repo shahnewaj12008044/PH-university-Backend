@@ -39,3 +39,14 @@ export const generateFacultyId = async() =>{
     const incrementFacultyId = currenFacultyId.toString().padStart(4,'0')
     return `F-${incrementFacultyId}`
 }
+export const generateAdminId = async() =>{
+    let currentAdminId = 0;
+    const lastAdminId = await findLastId('admin');
+    if(lastAdminId){
+      currentAdminId = Number(lastAdminId.substring(2,6)) + 1;
+    }else{
+      currentAdminId = 1;
+    }
+    const incrementFacultyId = currentAdminId.toString().padStart(4,'0')
+    return `A-${incrementFacultyId}`
+}

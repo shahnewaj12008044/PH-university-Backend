@@ -32,7 +32,7 @@ export const createFacultyValidationSchema = z.object({
     email: z.string().email('Email is not valid').min(1, 'Email is required'),
     contactNo: z.string().min(1, 'Contact no is required'),
     emergencyContactNo: z.string().min(1, 'Emergency Contact No is required'),
-    BloodGroup: z
+    bloodGroup: z
       .enum(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'])
       .optional(),
     presentAdress: z.string().min(1, 'Present Address is required'),
