@@ -113,15 +113,17 @@ AdminSchema.pre('aggregate', function (next) {
 
 //This will be done after some time
 
-// AdminSchema.pre('findOneAndUpdate', async function(next){
-//   const query = this.getQuery();
+AdminSchema.pre('findOneAndUpdate', async function(next){
+  const query = this.getQuery();
 
-//   const isAdmin = Admin.findOne(query);
-//   if( !isAdmin || isAdmin.isDeleted){
-//     throw new AppError(httpStatus.BAD_REQUEST,
-//       'This Faculty is already deleted or does not exist')
-//   }
-// })
+  const isAdmin = await Admin.findOne(query);
+  // console.log(isAdmin)
+  if( !isAdmin || isAdmin.isDeleted){
+    throw new AppError(httpStatus.BAD_REQUEST,
+      'This Faculty is already deleted or does not exist')
+  }
+  next()
+})
 
 AdminSchema.statics.isUserExist = async function(id: string){
   const existingUser = Admin.findOne({id});

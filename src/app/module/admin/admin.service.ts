@@ -67,7 +67,7 @@ const deleteAdminFromDB = async( id : string) =>{
     }catch(err){
        await session.abortTransaction()
        await session.endSession();
-       throw new AppError(httpStatus.BAD_REQUEST, "Failed to delete")
+       throw new AppError(httpStatus.BAD_REQUEST, err as string)
     }
 }
 
