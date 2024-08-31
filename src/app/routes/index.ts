@@ -6,9 +6,11 @@ import { AcademicFacultyRoute} from '../module/academicFaculty/academicFaculty.r
 import { AcademicDepartmentRoute } from '../module/academicDepartment/academicDepartment.route';
 import { facultyRoutes } from '../module/faculty/faculty.route';
 import { adminRoutes } from '../module/admin/admin.route';
-import { CourseRoutes } from '../module/faculty/course.route';
+
 import { semesterRegistrationRouter } from '../module/semesterRegistration/semesterRegistration.router';
 import { OfferedCourseRouter } from '../module/offeredCourse/offeredCourse.route';
+import { AuthRouters } from '../module/Auth/Auth.route';
+import { CourseRoutes } from '../module/Course/course.route';
 
 const router = Router();
 
@@ -57,6 +59,10 @@ const moduleRouter = [
   {
     path: '/offered-course',
     route: OfferedCourseRouter,
+  },
+  {
+    path: '/auth',
+    route: AuthRouters ,
   },
 ];
 

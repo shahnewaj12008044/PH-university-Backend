@@ -2,6 +2,7 @@ import { Router } from 'express';
 import validationRequest from '../../middlewares/validateRequest';
 import { CourseValidations } from '../Course/course.validation';
 import { CourseControllers } from '../Course/course.controller';
+import auth from '../../middlewares/auth';
 
 const router = Router();
 
@@ -11,7 +12,7 @@ router.post(
   CourseControllers.createCourse
 );
 
-router.get('/', CourseControllers.getAllCourses);
+router.get('/',auth(), CourseControllers.getAllCourses);
 router.get('/:courseId', CourseControllers.getSingleCourse);
 //assigning faculties with courses:
 router.put(

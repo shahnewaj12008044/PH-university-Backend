@@ -18,7 +18,22 @@ const createStudentIntoDB = async (password: string, payload: TStudent) => {
   //create a new user
   const userData: Partial<TUser> = {};
   //set pass to the user
-  userData.password = (config.default_pass as string) || password;
+  //
+  /*
+  
+  SAD STORY :( 
+  FIRST I used the logic to set pass  userData.password = (config.default_pass as string) || password;
+then i realized it prefers the default pass over the given pass and i changed the logic for admin and faculty but forgot to change for the student
+now when months later i am working for auth i couldnt login as a student whereas i can login as admin or faculty because the pass i gave is not set in the student
+student set default pass
+after research fuound the bug at last :) 
+
+ */
+
+
+
+  userData.password =  password || (config.default_pass as string) ;
+  // console.log(userData)
   //set role
   userData.role = 'student';
   // find academic semester info
