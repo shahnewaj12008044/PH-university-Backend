@@ -4,7 +4,11 @@ import { User } from './user.model';
 import { TUser } from './user.interface';
 import { Student } from '../student/student.model';
 import { AcademicSemester } from '../academicSemester/academicSemester.model';
-import { generateAdminId, generateFacultyId, generateStudentId } from './user.utils';
+import {
+  generateAdminId,
+  generateFacultyId,
+  generateStudentId,
+} from './user.utils';
 import { TAcademicSemester } from '../academicSemester/academicSemester.interface';
 import httpStatus from 'http-status-codes';
 import mongoose from 'mongoose';
@@ -30,9 +34,7 @@ after research fuound the bug at last :)
 
  */
 
-
-
-  userData.password =  password || (config.default_pass as string) ;
+  userData.password = password || (config.default_pass as string);
   // console.log(userData)
   //set role
   userData.role = 'student';
@@ -70,24 +72,24 @@ after research fuound the bug at last :)
   } catch (err) {
     await session.abortTransaction();
     await session.endSession();
-    throw new AppError(httpStatus.BAD_REQUEST,err as string)
+    throw new AppError(httpStatus.BAD_REQUEST, err as string);
   }
 };
 const createFacultyIntoDB = async (password: string, payload: TFaculty) => {
   //create a new user
   const userData: Partial<TUser> = {};
   //set pass to the user
-  userData.password =  password || (config.default_pass as string);
+  userData.password = password || (config.default_pass as string);
   //set role
   userData.role = 'faculty';
-  
+
   //creating a isolation session for transaction
   const session = await mongoose.startSession();
 
   try {
     //set  generated id
     session.startTransaction();
-    userData.id = await generateFacultyId()
+    userData.id = await generateFacultyId();
 
     const newUser = await User.create([userData], { session }); //built in static method
     //create a student
@@ -109,18 +111,18 @@ const createFacultyIntoDB = async (password: string, payload: TFaculty) => {
   } catch (err) {
     await session.abortTransaction();
     await session.endSession();
-    throw new AppError(httpStatus.BAD_REQUEST,err as string)
+    throw new AppError(httpStatus.BAD_REQUEST, err as string);
   }
 };
 
-const createAdminIntoDB = async( password: string, payload: TAdmin) =>{
+const createAdminIntoDB = async (password: string, payload: TAdmin) => {
   //create a new user
-  const userData : Partial<TUser> = {};
-  userData.password = password ||(config.default_pass as string);
+  const userData: Partial<TUser> = {};
+  userData.password = password || (config.default_pass as string);
   userData.role = 'admin';
   //creating isolation session for transaction
   const session = await mongoose.startSession();
-  try{
+  try {
     session.startTransaction();
     userData.id = await generateAdminId();
     // console.log(userData)
@@ -134,24 +136,23 @@ const createAdminIntoDB = async( password: string, payload: TAdmin) =>{
     payload.id = newUser[0].id;
     payload.user = newUser[0]._id;
 
-    const newAdmin = await Admin.create([payload],{session});
+    const newAdmin = await Admin.create([payload], { session });
     // console.log(newAdmin)
-    if(!newAdmin.length){
-      throw new AppError(httpStatus.BAD_REQUEST,'Failed To Create Admin!!!')
+    if (!newAdmin.length) {
+      throw new AppError(httpStatus.BAD_REQUEST, 'Failed To Create Admin!!!');
     }
-  
+
     await session.commitTransaction();
     await session.endSession();
     // console.log(newAdmin)
     return newAdmin;
-  }catch(err){
+  } catch (err) {
     // console.log(err)
     await session.abortTransaction();
-    await session.endSession()
-    throw new AppError(httpStatus.BAD_REQUEST, err as string)
+    await session.endSession();
+    throw new AppError(httpStatus.BAD_REQUEST, err as string);
   }
-
-}
+};
 
 export const UserServices = {
   createStudentIntoDB,
