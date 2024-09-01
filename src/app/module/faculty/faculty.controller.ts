@@ -9,6 +9,7 @@ const getAllFaculties = catchAsync(async (req, res) => {
   
   const result = await FacultyServices.getAllFacultiesFromDB(req.query);
   // console.log(req.query)
+  // console.log(req.cookies)
   //send response
   sendResponse(res, {
     status: httpStatus.OK,
